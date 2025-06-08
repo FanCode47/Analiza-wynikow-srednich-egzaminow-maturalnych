@@ -39,7 +39,7 @@ if (!("gganimate" %in% search())) {
 }
 
 # --- Ustawienia ścieżki do folderu z danymi ---
-sciezka_folderu <- "C:/Users/pavli/OneDrive/Робочий стіл/Analiza_wyn_sr/Analiza-wynikow-srednich-egzaminow-maturalnych"
+sciezka_folderu <- "C:/Users/pavli/OneDrive/Робочий стіл/Analiza-wynikow-srednich-egzaminow-maturalnych"
 
 # --- Wczytanie danych ---
 srednie_wyniki_egzaminu_maturalnego <- read_csv2(
@@ -68,12 +68,20 @@ data_general_avg <- data_general %>%
   group_by(rok, przedmiot) %>%
   summarise(wartosc = mean(as.numeric(wartosc), na.rm = TRUE), .groups = "drop")
 
+# Utworzenie własnego wektora kolorów (24 różne kolory)
+my_colors <- c(
+  "#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628", "#f781bf", "#999999",
+  "#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f", "#e5c494", "#b3b3b3",
+  "#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d"
+)
+
 # --- Animowany wykres średnich wyników z przedmiotów ---
 plot_anim <- ggplot(data_general_avg, aes(x = przedmiot, y = wartosc, fill = przedmiot)) +
   geom_col() +
   labs(title = "Średnie wyniki z przedmiotów — {closest_state}", y = "Średni wynik", x = "Przedmiot") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ylim(0, 100) +
+#  scale_fill_manual(values = my_colors) + # Używanie własnej palety
   transition_states(rok, transition_length = 2, state_length = 1) +
   enter_fade() + exit_fade()
 
@@ -87,6 +95,7 @@ plot_trendy <- ggplot(data_general_avg, aes(x = rok, y = wartosc, color = przedm
   geom_line(size = 1) +
   geom_point(size = 2) +
   scale_x_continuous(breaks = unique(data_general_avg$rok)) +
+#  scale_color_manual(values = my_colors) + # Używanie własnej palety
   labs(
     title = "Trendy wyników z wszystkich przedmiotów w czasie",
     x = "Rok",
