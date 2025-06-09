@@ -52,6 +52,11 @@ data_cleaned <- srednie_wyniki_egzaminu_maturalnego %>%
   select(-nazwa_zmiennej, -kraj, -typ_informacji_z_jednostka_miary) %>%
   filter(!(flaga %in% c("(.)", "(–)"))) %>%
   select(-flaga)
+# Czyszczenie danych bez dplyr
+#data_cleaned <- srednie_wyniki_egzaminu_maturalnego
+#data_cleaned <- data_cleaned[, !(names(data_cleaned) %in% c("nazwa_zmiennej", "kraj", "typ_informacji_z_jednostka_miary"))]
+#data_cleaned <- data_cleaned[!(data_cleaned$flaga %in% c("(.)", "(–)")), ]
+#data_cleaned <- data_cleaned[, -c("flaga")]
 
 # --- Zapis oczyszczonych danych do pliku ---
 write_csv2(
@@ -67,6 +72,13 @@ data_by_gender <- data_cleaned %>% filter(plec != "ogółem")
 data_general_avg <- data_general %>%
   group_by(rok, przedmiot) %>%
   summarise(wartosc = mean(as.numeric(wartosc), na.rm = TRUE), .groups = "drop")
+# Agregacja bez użycia dplyr
+#data_general$wartosc <- as.numeric(data_general$wartosc) # переконайтесь, що wartosc числова
+#data_general_avg <- aggregate(
+#  wartosc ~ rok + przedmiot,
+#  data = data_general,
+#  FUN = function(x) mean(x, na.rm = TRUE)
+#)
 
 # Utworzenie własnego wektora kolorów (24 różne kolory)
 my_colors <- c(
@@ -81,7 +93,7 @@ plot_anim <- ggplot(data_general_avg, aes(x = przedmiot, y = wartosc, fill = prz
   labs(title = "Średnie wyniki z przedmiotów — {closest_state}", y = "Średni wynik", x = "Przedmiot") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ylim(0, 100) +
-#  scale_fill_manual(values = my_colors) + # Używanie własnej palety
+  scale_fill_manual(values = my_colors) + # Używanie własnej palety
   transition_states(rok, transition_length = 2, state_length = 1) +
   enter_fade() + exit_fade()
 
@@ -95,7 +107,7 @@ plot_trendy <- ggplot(data_general_avg, aes(x = rok, y = wartosc, color = przedm
   geom_line(size = 1) +
   geom_point(size = 2) +
   scale_x_continuous(breaks = unique(data_general_avg$rok)) +
-#  scale_color_manual(values = my_colors) + # Używanie własnej palety
+  scale_color_manual(values = my_colors) + # Używanie własnej palety
   labs(
     title = "Trendy wyników z wszystkich przedmiotów w czasie",
     x = "Rok",
