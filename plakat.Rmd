@@ -138,7 +138,7 @@ knitr::include_graphics("roznica_plec.png")
 
 ```
  
-Wykres pokazuje średnią różnicę wyników maturalnych między kobietami a mężczyznami dla każdego przedmiotu, gdzie kolor różowy oznacza przewagę kobiet, a czarny – mężczyzn.
+Wykres pokazuje średnią różnicę wyników maturalnych między kobietami a mężczyznami dla każdego przedmiotu, gdzie kolor karmazynowy oznacza przewagę kobiet, a jasnoniebieski – mężczyzn.
 
 **Podsumowanie:**  
 Analiza wykazuje, że kobiety osiągają znacząco lepsze wyniki w takich przedmiotach jak historia muzyki, język kaszubski czy język litewski, natomiast mężczyźni przeważają w chemii, WOS-ie i historii.
@@ -158,7 +158,7 @@ Macierz korelacji między średnimi wynikami z przedmiotów
 knitr::include_graphics("heatmapa_korelacji.png")
 ```
  
-Heatmapa przedstawia współczynniki korelacji pomiędzy średnimi wynikami z poszczególnych przedmiotów maturalnych. Kolor zielony oznacza dodatnią korelację (im silniejsza, tym ciemniejszy kolor), natomiast jasne obszary wskazują na brak związku między przedmiotami.  
+Heatmapa przedstawia współczynniki korelacji pomiędzy średnimi wynikami z poszczególnych przedmiotów maturalnych. Kolor ciemnoczerwony oznacza dodatnią korelację (im silniejsza, tym ciemniejszy kolor), natomiast jasne obszary wskazują na brak związku między przedmiotami.  
 Wizualizacja pozwala szybko zidentyfikować grupy przedmiotów, które osiągają podobne wyniki wśród zdających – na przykład języki obce, przedmioty ścisłe lub humanistyczne.
 
 **Podsumowanie:**  
@@ -166,7 +166,7 @@ Najsilniejsze korelacje obserwujemy m.in. między językami obcymi, a także pom
 
 :::
 
-::: {.column width="100%"}
+::: {.column width="100%" .third-column}
 
 <div style="background-color:#104F4F; color:white; padding:14px; margin-top:10px; text-align:center; font-weight:bold; border-radius:4px; font-size:31px;">
 Porównanie wyników: przykłady silnej ujemnej i dodatniej korelacji między przedmiotami
