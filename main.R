@@ -212,7 +212,7 @@ ggsave(file.path(sciezka_folderu, "heatmapa_korelacji.png"), plot = plot5, width
 
 # Porównanie wyników: WOS vs. Łacina -----------------------------------------------------------------------
 r_val <- cor_long_filtered_unique %>%
-  filter(Przedmiot_1 == "język łaciński i kultura antyczna" & Przedmiot_2 == "wiedza o społeczeństwie") %>%
+  filter(Przedmiot_1 == "wiedza o społeczeństwie" & Przedmiot_2 == "język łaciński i kultura antyczna") %>%
   pull(Korelacja) %>%
   round(3)
 
