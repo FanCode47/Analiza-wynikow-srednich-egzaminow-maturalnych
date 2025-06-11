@@ -175,8 +175,8 @@ cor_long_filtered_unique <- cor_long_filtered %>%
 top10_positive <- cor_long_filtered_unique %>%
   arrange(desc(Korelacja)) %>%
   slice_head(n = 10)
-
 #top10_positive <- cor_long_filtered_unique[order(cor_long_filtered_unique$Korelacja, decreasing = TRUE)[1:10], ]
+
 top10_negative <- cor_long_filtered_unique %>%
   arrange(Korelacja) %>%
   slice_head(n = 10)
@@ -212,7 +212,7 @@ ggsave(file.path(sciezka_folderu, "heatmapa_korelacji.png"), plot = plot5, width
 
 # Porównanie wyników: WOS vs. Łacina -----------------------------------------------------------------------
 r_val <- cor_long_filtered_unique %>%
-  filter(Przedmiot_1 == "wiedza o społeczeństwie" & Przedmiot_2 == "język łaciński i kultura antyczna") %>%
+  filter(pair == "język łaciński i kultura antyczna — wiedza o społeczeństwie") %>%
   pull(Korelacja) %>%
   round(3)
 
@@ -249,7 +249,7 @@ hiszp_niem_long <- data_general %>%
   group_by(rok, przedmiot) %>%
   summarise(wartosc = mean(wartosc, na.rm = TRUE), .groups = "drop")
 
-plot_hiszp_niem <- ggplot(hiszp_niem_long, aes(x = factor(rok), y = wartosc, fill = przedmiot)) +
+plot7 <- ggplot(hiszp_niem_long, aes(x = factor(rok), y = wartosc, fill = przedmiot)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(
     title = paste("Porównanie wyników: język hiszpański vs. język niemiecki\n(Współczynnik korelacji:", r_val_hiszp_niem, ")"),
@@ -264,4 +264,4 @@ plot_hiszp_niem <- ggplot(hiszp_niem_long, aes(x = factor(rok), y = wartosc, fil
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-ggsave(file.path(sciezka_folderu, "porownanie_hiszp_niem.png"), plot = plot_hiszp_niem, width = 10, height = 6, dpi = 300)
+ggsave(file.path(sciezka_folderu, "porownanie_hiszp_niem.png"), plot = plot7, width = 10, height = 6, dpi = 300)
